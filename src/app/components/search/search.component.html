@@ -1,0 +1,21 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+    </div>
+    <input #text type="text" (keyup)="search(text.value)" class="form-control" placeholder="Search Movie...">
+</div>
+
+<div class="container m-5">
+    <div class="card-columns">
+        <div *ngFor="let search of searchMovie" class="card" style="width: 18rem;">
+
+            <img [src]="search | image" class="card-img-top" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{search.original_title}}</h5>
+                <p class="card-text">{{search.overview}}</p>
+                <a href="#" class="btn btn-outline-primary">See more..</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
