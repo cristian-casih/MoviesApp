@@ -1,21 +1,27 @@
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
+
+<div class="col-md-12">
+    <div class="input-group mb-3">
+
+        <input #text type="text" [(ngModel)]="paramsText" name="paramsText" (keyup)="search(text.value)"
+            class="form-control" placeholder="Search Movie...">
+
     </div>
-    <input #text type="text" (keyup)="search(text.value)" class="form-control" placeholder="Search Movie...">
-</div>
+    <app-loading class="m-5" *ngIf="loading"></app-loading>
+    <div *ngIf="!loading" class="row animated fadeIn fat">
+        <div class="card-columns">
+            <div *ngFor="let search of searchMovie" class="card" style="width: 18rem;">
 
-<div class="container m-5">
-    <div class="card-columns">
-        <div *ngFor="let search of searchMovie" class="card" style="width: 18rem;">
-
-            <img [src]="search | image" class="card-img-top" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{search.original_title}}</h5>
-                <p class="card-text">{{search.overview}}</p>
-                <a href="#" class="btn btn-outline-primary">See more..</a>
+                <img [src]="search | image" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{search.original_title}}</h5>
+                    <p class="card-text">{{search.overview | slice:0:250}}...</p>
+                    
+                    <button (click)=movieOne(search) type="button" class="btn btn-info puntero">See more..
+                            <i class="fas fa-chevron-circle-down"></i></button>
+                </div>
             </div>
+
+
         </div>
-
-
     </div>
 </div>

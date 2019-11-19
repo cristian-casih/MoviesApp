@@ -5,21 +5,25 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ImagePipe implements PipeTransform {
 
-  urlImage='http://image.tmdb.org/t/p/w300'
+  urlImage = 'http://image.tmdb.org/t/p/w300'
 
-  transform(images: any): string {
-
-    if (!images) {
-      return 'assets/noimage.png'
+  transform(images: any, poster: boolean = false): string {
+    if(poster){
+      this.urlImage + images.poster_path
     }
+
     if (images.backdrop_path) {
-      console.log(this.urlImage + images.backdrop_path);
-      
-      return this.urlImage + images.backdrop_path
-    }else{
-      if(images.poster_path)
-      return this.urlImage + images.poster_path
-    }
-  }
 
+      return this.urlImage + images.backdrop_path
+    } else
+      if (images.poster_path) {
+
+        return this.urlImage + images.poster_path
+      } else {
+        return 'assets/noimage.png'
+
+      }
+  }
 }
+
+
