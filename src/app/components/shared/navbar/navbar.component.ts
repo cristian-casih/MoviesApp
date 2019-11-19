@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MoviesService } from '../../../services/movies.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: []
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  constructor() { }
+  arraySearch: any;
+  constructor(public _ms: MoviesService,
+              public router: Router) {
 
-  ngOnInit() {
   }
 
+  searchMovie(text: string) {
+
+    if (text.length == 0) {
+      return;
+    }
+    this.router.navigate(['search', text])
+  }
 }

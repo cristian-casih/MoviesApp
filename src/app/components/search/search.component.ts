@@ -1,27 +1,42 @@
 import { Component } from '@angular/core';
-import { MoviesService } from './../../services/movies.service'
+import { MoviesService } from './../../services/movies.service';
+import { ActivatedRoute,Router } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: []
 })
 export class SearchComponent{
 
   searchMovie:any;
+  paramsText:any;
+  loading:boolean;
 
-  constructor(private _ms:MoviesService) {
+  constructor(public _ms:MoviesService,
+              public route:ActivatedRoute,
+              public router:Router) {
 
+                this.route.params.subscribe(params=>{
+                  if(params['text']){
+                    this.paramsText=params['text']
+                    this.search(params['text'])
+                  }
+                })
   }
   search(text:string){
-    console.log(text);
+    this.loading=true;
 
     this._ms.searchMovie(text)
-      .subscribe(data => {       
+      .subscribe(data => { 
         this.searchMovie=data;
-        console.log(this.searchMovie);
-        
+        this.loading=false;
       })
     
   }
+ movieOne(search :any){
 
+    let id=search.id
+    this.router.navigate(['movie',id,'search',this.paramsText]);
+    
+  } 
 }
